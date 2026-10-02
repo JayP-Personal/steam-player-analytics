@@ -1,0 +1,31 @@
+"""Smoke-test helpers. Each takes an open Snowflake connection, so callers
+decide how to connect (local key file or Airflow connection)."""
+
+from snowflake.connector import SnowflakeConnection
+
+
+def check_session(conn: SnowflakeConnection) -> dict:
+    """Return who/where this session is running as."""
+    with conn.cursor() as cur:
+        cur.execute(
+            "select current_user(), current_role(), "
+            "current_warehouse(), current_version()"
+        )
+        user, role, warehouse, version = cur.fetchone()
+    return {"user": user, "role": role, "warehouse": warehouse, "version": version}
+
+
+def insert_smoke_row(conn: SnowflakeConnection, source: str) -> int:
+    """Insert one row tagged with `source`; return how many rows that source has."""
+    with conn.cursor() as cur:
+        cur.execute(
+            "create table if not exists smoke_test "
+            "(id integer, source string, loaded_at timestamp_ntz)"
+        )
+        cur.execute(
+            "insert into smoke_test (id, source, loaded_at) "
+            "select coalesce(max(id), 0) + 1, %s, current_timestamp() from smoke_test",
+            (source,),
+        )
+        cur.execute("select count(*) from smoke_test where source = %s", (source,))
+        return cur.fetchone()[0]

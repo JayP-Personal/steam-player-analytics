@@ -1,0 +1,10 @@
+services:
+  scheduler:
+    volumes:
+      - ../src:/usr/local/airflow/src:ro
+  dag-processor:
+    volumes:
+      - ../src:/usr/local/airflow/src:ro
+  triggerer:
+    volumes:
+      - ../src:/usr/local/airflow/src:ro

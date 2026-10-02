@@ -2,9 +2,12 @@ services:
   scheduler:
     volumes:
       - ../src:/usr/local/airflow/src:ro
+      - ../dbt_steam:/usr/local/airflow/dbt_steam:ro
   dag-processor:
     volumes:
       - ../src:/usr/local/airflow/src:ro
+      - ../dbt_steam:/usr/local/airflow/dbt_steam:ro
   triggerer:
     volumes:
       - ../src:/usr/local/airflow/src:ro
+      - ../dbt_steam:/usr/local/airflow/dbt_steam:ro

@@ -4,6 +4,8 @@ from airflow.providers.snowflake.hooks.snowflake import SnowflakeHook
 from airflow.sdk import dag, task
 
 CONN_ID = "snowflake_default"
+DBT_BIN = "/usr/local/airflow/dbt_venv/bin/dbt"
+DBT_PROJECT = "/usr/local/airflow/dbt_steam"
 
 
 @dag(start_date=datetime(2026, 1, 1), schedule=None, catchup=False, tags=["smoke"])
@@ -46,7 +48,11 @@ def stack_smoke():
         print(f"Rows written by Airflow so far: {count}")
         return count
 
-    import_package() >> check_session() >> write_and_read()
+    @task.bash
+    def dbt_build() -> str:
+        return f"{DBT_BIN} build --select smoke_check --project-dir {DBT_PROJECT}"
+
+    import_package() >> check_session() >> write_and_read() >> dbt_build()
 
 
 stack_smoke()

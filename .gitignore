@@ -1,3 +1,8 @@
+docs/main-plan
+.venv
+
+# Standard Python git ignore below:
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -216,3 +221,20 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# dbt target outputs, packages, and execution logs
+target/
+dbt_packages/
+logs/
+*.log
+
+# Airflow runtime logs & lockfiles
+airflow/logs/
+airflow/airflow-webserver.pid
+
+# Jupyter Notebook checkpoints & local raw data
+.ipynb_checkpoints/
+data/
+*.csv
+*.parquet
+*.sqlite

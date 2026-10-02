@@ -231,6 +231,8 @@ logs/
 # Airflow runtime logs & lockfiles
 airflow/logs/
 airflow/airflow-webserver.pid
+airflow/.env
+airflow/airflow_settings.yaml
 
 # Jupyter Notebook checkpoints & local raw data
 .ipynb_checkpoints/
@@ -238,3 +240,5 @@ data/
 *.csv
 *.parquet
 *.sqlite
+
+#Astro

@@ -1,10 +1,9 @@
-"""Smoke-test helpers. Each takes an open Snowflake connection, so callers
-decide how to connect (local key file or Airflow connection)."""
+"""Smoke-test helpers"""
 
 from snowflake.connector import SnowflakeConnection
 
 
-def check_session(conn: SnowflakeConnection) -> dict:
+def check_snowflake_session(conn: SnowflakeConnection) -> dict:
     """Return who/where this session is running as."""
     with conn.cursor() as cur:
         cur.execute(
@@ -15,7 +14,7 @@ def check_session(conn: SnowflakeConnection) -> dict:
     return {"user": user, "role": role, "warehouse": warehouse, "version": version}
 
 
-def insert_smoke_row(conn: SnowflakeConnection, source: str) -> int:
+def write_snowflake_smoke_row(conn: SnowflakeConnection, source: str) -> int:
     """Insert one row tagged with `source`; return how many rows that source has."""
     with conn.cursor() as cur:
         cur.execute(

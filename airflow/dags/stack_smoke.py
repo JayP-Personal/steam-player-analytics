@@ -19,12 +19,12 @@ def stack_smoke():
         return location
 
     @task
-    def check_session() -> dict:
-        from steam_analytics.smoke import check_session
+    def check_snowflake_session() -> dict:
+        from steam_analytics.smoke import check_snowflake_session
 
         conn = SnowflakeHook(snowflake_conn_id=CONN_ID).get_conn()
         try:
-            info = check_session(conn)
+            info = check_snowflake_session(conn)
         finally:
             conn.close()
 
@@ -37,11 +37,11 @@ def stack_smoke():
 
     @task
     def write_and_read() -> int:
-        from steam_analytics.smoke import insert_smoke_row
+        from steam_analytics.smoke import write_snowflake_smoke_row
 
         conn = SnowflakeHook(snowflake_conn_id=CONN_ID).get_conn()
         try:
-            count = insert_smoke_row(conn, source="airflow")
+            count = write_snowflake_smoke_row(conn, source="airflow")
         finally:
             conn.close()
 
@@ -52,7 +52,7 @@ def stack_smoke():
     def dbt_build() -> str:
         return f"{DBT_BIN} build --select smoke_check --project-dir {DBT_PROJECT}"
 
-    import_package() >> check_session() >> write_and_read() >> dbt_build()
+    import_package() >> check_snowflake_session() >> write_and_read() >> dbt_build()
 
 
 stack_smoke()

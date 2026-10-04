@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-BASE_URL = "http://api.steampowered.com"
+BASE_URL = "https://api.steampowered.com"
 RETRY_STATUSES = (429, 500, 502, 503, 504)
 
 def _build_session(retries: int, backoff: float) -> requests.Session:
@@ -34,7 +34,7 @@ class SteamClient:
             api_key = os.environ["STEAM_API_KEY"]
         self.api_key = api_key
         self.timeout = timeout
-        self.session = requests.Session()
+        self.session = _build_session(retries, backoff)
 
     def _get(
         self, path: str, params: dict | None = None, *, auth: bool = False

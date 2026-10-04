@@ -31,6 +31,7 @@ def write_snowflake_smoke_row(conn: SnowflakeConnection, source: str) -> int:
         cur.execute("select count(*) from smoke_test where source = %s", (source,))
         return cur.fetchone()[0]
 
+
 def check_steam_api(client: SteamClient) -> dict:
     # keyless: network + plumbing
     players = client.get_current_players(730)

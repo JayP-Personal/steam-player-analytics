@@ -1,8 +1,8 @@
-"""Example Dags test. 
-This test ensures that all Dags have tags, 
-retries set to two, and no import errors. 
-This is an example pytest and may not be fit 
-the context of your Dags. Feel free to add 
+"""Example Dags test.
+This test ensures that all Dags have tags,
+retries set to two, and no import errors.
+This is an example pytest and may not be fit
+the context of your Dags. Feel free to add
 and remove tests."""
 
 import logging
@@ -85,6 +85,6 @@ def test_dag_retries(dag_id, dag, fileloc):
     """
     test if a Dag has retries set
     """
-    assert (
-        dag.default_args.get("retries", None) >= 2
-    ), f"{dag_id} in {fileloc} must have task retries >= 2."
+    assert dag.default_args.get("retries", None) >= 2, (
+        f"{dag_id} in {fileloc} must have task retries >= 2."
+    )

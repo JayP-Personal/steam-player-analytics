@@ -8,6 +8,7 @@ from urllib3.util.retry import Retry
 BASE_URL = "https://api.steampowered.com"
 RETRY_STATUSES = (429, 500, 502, 503, 504)
 
+
 def _build_session(retries: int, backoff: float) -> requests.Session:
     retry = Retry(
         total=retries,
@@ -20,6 +21,7 @@ def _build_session(retries: int, backoff: float) -> requests.Session:
     session = requests.Session()
     session.mount("https://", HTTPAdapter(max_retries=retry))
     return session
+
 
 class SteamClient:
     def __init__(
@@ -44,12 +46,14 @@ class SteamClient:
             params["key"] = self.api_key
         try:
             resp = self.session.get(
-            f"{BASE_URL}/{path}", params=params, timeout=self.timeout
+                f"{BASE_URL}/{path}", params=params, timeout=self.timeout
             )
         except requests.RequestException as exc:
             # 'from None' drops the original exception,
             # whose message includes the URL and key.
-            raise RuntimeError(f"Steam API {path} failed: {type(exc).__name__}") from None
+            raise RuntimeError(
+                f"Steam API {path} failed: {type(exc).__name__}"
+            ) from None
         if not resp.ok:
             # Dont't use raise_for_status(): its messages includes the key
             raise RuntimeError(f"Steam API {path} returned HTTP {resp.status_code}")

@@ -2,7 +2,7 @@ import pytest
 import requests
 import responses
 
-from steam_analytics.steam_client import BASE_URL, SteamClient
+from hiring_pipeline.steam_client import BASE_URL, SteamClient
 
 KEY = "test-key-123"
 PLAYERS_URL = f"{BASE_URL}/ISteamUserStats/GetNumberOfCurrentPlayers/v1/"

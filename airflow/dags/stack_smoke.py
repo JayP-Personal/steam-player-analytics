@@ -12,15 +12,15 @@ DBT_PROJECT = "/usr/local/airflow/dbt_steam"
 def stack_smoke():
     @task
     def import_package() -> str:
-        import steam_analytics
+        import hiring_pipeline
 
-        location = str(list(steam_analytics.__path__))
-        print(f"steam_analytics loaded from {location}")
+        location = str(list(hiring_pipeline.__path__))
+        print(f"hiring_pipeline loaded from {location}")
         return location
 
     @task
     def check_snowflake_session() -> dict:
-        from steam_analytics.smoke import check_snowflake_session
+        from hiring_pipeline.smoke import check_snowflake_session
 
         conn = SnowflakeHook(snowflake_conn_id=CONN_ID).get_conn()
         try:
@@ -37,7 +37,7 @@ def stack_smoke():
 
     @task
     def write_and_read() -> int:
-        from steam_analytics.smoke import write_snowflake_smoke_row
+        from hiring_pipeline.smoke import write_snowflake_smoke_row
 
         conn = SnowflakeHook(snowflake_conn_id=CONN_ID).get_conn()
         try:
@@ -54,8 +54,8 @@ def stack_smoke():
 
     @task
     def steam_api() -> dict:
-        from steam_analytics.smoke import check_steam_api
-        from steam_analytics.steam_client import SteamClient
+        from hiring_pipeline.smoke import check_steam_api
+        from hiring_pipeline.steam_client import SteamClient
 
         info = check_steam_api(SteamClient(api_key=Variable.get("steam_api_key")))
         print(info)

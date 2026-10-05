@@ -2,7 +2,7 @@
 
 from snowflake.connector import SnowflakeConnection
 
-from steam_analytics.steam_client import SteamClient
+from hiring_pipeline.steam_client import SteamClient
 
 
 def check_snowflake_session(conn: SnowflakeConnection) -> dict:

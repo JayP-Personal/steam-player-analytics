@@ -1,4 +1,4 @@
-from steam_analytics.db_conn import get_snowflake_conn
+from hiring_pipeline.db_conn import get_snowflake_conn
 
 
 def main() -> None:

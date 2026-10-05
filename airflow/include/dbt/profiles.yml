@@ -1,4 +1,4 @@
-dbt_steam:
+dbt_tech_hiring:
   target: dev
   outputs:
     dev:
@@ -8,6 +8,6 @@ dbt_steam:
       private_key_path: "{{ env_var('DBT_SNOWFLAKE_KEY_PATH') }}"
       role: "{{ env_var('DBT_SNOWFLAKE_ROLE') }}"
       warehouse: "{{ env_var('DBT_SNOWFLAKE_WAREHOUSE') }}"
-      database: STEAM_DB
+      database: TECH_HIRING_DB
       schema: DEV
       threads: 4

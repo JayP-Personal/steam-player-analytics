@@ -1,11 +1,11 @@
 from datetime import datetime
 
 from airflow.providers.snowflake.hooks.snowflake import SnowflakeHook
-from airflow.sdk import Variable, dag, task
+from airflow.sdk import dag, task
 
 CONN_ID = "snowflake_default"
 DBT_BIN = "/usr/local/airflow/dbt_venv/bin/dbt"
-DBT_PROJECT = "/usr/local/airflow/dbt_steam"
+DBT_PROJECT = "/usr/local/airflow/dbt_tech_hiring"
 
 
 @dag(start_date=datetime(2026, 1, 1), schedule=None, catchup=False, tags=["smoke"])
@@ -52,17 +52,7 @@ def stack_smoke():
     def dbt_build() -> str:
         return f"{DBT_BIN} build --select smoke_check --project-dir {DBT_PROJECT}"
 
-    @task
-    def steam_api() -> dict:
-        from hiring_pipeline.smoke import check_steam_api
-        from hiring_pipeline.steam_client import SteamClient
-
-        info = check_steam_api(SteamClient(api_key=Variable.get("steam_api_key")))
-        print(info)
-        return info
-
     imported = import_package()
-    imported >> steam_api()
     imported >> check_snowflake_session() >> write_and_read() >> dbt_build()
 
 

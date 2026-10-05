@@ -2,8 +2,6 @@
 
 from snowflake.connector import SnowflakeConnection
 
-from hiring_pipeline.steam_client import SteamClient
-
 
 def check_snowflake_session(conn: SnowflakeConnection) -> dict:
     """Return who/where this session is running as."""
@@ -30,13 +28,3 @@ def write_snowflake_smoke_row(conn: SnowflakeConnection, source: str) -> int:
         )
         cur.execute("select count(*) from smoke_test where source = %s", (source,))
         return cur.fetchone()[0]
-
-
-def check_steam_api(client: SteamClient) -> dict:
-    # keyless: network + plumbing
-    players = client.get_current_players(730)
-    # keyed: proves the key is valid
-    apps = client.get_app_list(max_results=1)
-    if not apps:
-        raise ValueError("GetAppList returned no apps")
-    return {"cs2_players": players, "sample_app": apps[0]["name"]}

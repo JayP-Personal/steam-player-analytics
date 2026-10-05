@@ -6,25 +6,37 @@ Each milestone becomes a GitHub milestone and ends with a tagged release. Each c
 
 ---
 
-## v0.1 — Ingestion
+## v0.2 — Ingestion
 
 **Goal:** a daily Airflow DAG lands every tracked company's job board in Snowflake, reliably and unattended.
 
-- [ ] `docs(adr)`: 0003 company sampling frame (which companies, how chosen, what it means for the results)
-- [ ] `feat(seeds)`: company list with job board platform and board slug
-- [ ] `feat(snowflake)`: raw table for job board responses (`VARIANT` payload, company, platform, fetched_at)
-- [ ] `feat(ingest)`: Greenhouse client with retries, rate limiting and tests
+### Company list
+Companies are chosen from published lists, then matched to their job boards using a
+community inventory and verified against each board's live API (see ADR 0003).
+
+- [ ] `docs(adr)`: 0003 company sampling frame (source lists, inclusion rules, frozen core cohort, how boards are found and verified)
+- [ ] `feat(companies)`: candidates file built from the source lists, one row per company, tagged with stratum and source list
+- [ ] `feat(companies)`: board-matching script (name match against the ats-scrapers inventory, then slug guessing), with unit tests for name normalization and matching
+- [ ] `feat(companies)`: live verification step (board responds, has open postings, postings belong to the right company)
+- [ ] `feat(companies)`: manual lookup of unmatched candidates and an exclusion log recording each company's platform (including unsupported ones like Workday) and reason for exclusion
+- [ ] `docs(companies)`: coverage report (candidates vs. supported boards, by stratum and platform)
+- [ ] `feat(seeds)`: freeze the core cohort into the dbt seed (platform, slug, stratum, source list, added_on, status)
+
+### Collection
+- [ ] `feat(snowflake)`: raw table for job board responses (`VARIANT` payload, company, platform, board slug, fetched_at)
+- [ ] `feat(ingest)`: common client interface and Greenhouse client with retries, rate limiting and tests
 - [ ] `feat(ingest)`: Lever client with tests
 - [ ] `feat(ingest)`: Ashby client with tests
-- [ ] `feat(airflow)`: daily DAG that loads all boards into Snowflake
+- [ ] `feat(airflow)`: daily DAG that loads all boards into Snowflake, plus a DAG import test
 - [ ] `feat(airflow)`: failure alerting
-- [ ] `chore(release)`: v0.1.0
+- [ ] `chore(release)`: v0.2.0
 
-**Done when:** the DAG has run 7 days in a row without manual intervention.
+**Done when:** the DAG has run 7 days in a row without manual intervention, and the
+coverage report states what share of each stratum the sample covers.
 
 ---
 
-## v0.2 — Staging
+## v0.3 — Staging
 
 **Goal:** one clean, tested table of postings regardless of which platform they came from.
 
@@ -39,7 +51,7 @@ Each milestone becomes a GitHub milestone and ends with a tagged release. Each c
 
 ---
 
-## v0.3 — Posting lifecycle
+## v0.4 — Posting lifecycle
 
 **Goal:** know when each posting opened, changed and closed.
 
@@ -51,7 +63,7 @@ Each milestone becomes a GitHub milestone and ends with a tagged release. Each c
 
 ---
 
-## v0.4 — Enrichment
+## v0.5 — Enrichment
 
 **Goal:** turn free-text postings into analyzable features.
 
@@ -66,7 +78,7 @@ Each milestone becomes a GitHub milestone and ends with a tagged release. Each c
 
 ---
 
-## v0.5 — Analysis
+## v0.6 — Analysis
 
 **Goal:** answer the question, with honest uncertainty.
 

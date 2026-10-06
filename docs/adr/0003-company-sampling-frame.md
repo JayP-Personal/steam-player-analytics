@@ -14,6 +14,9 @@ Results describe whichever companies are tracked, so the selection must be repro
 ## Decision
 Option 3. Candidates come from [SOURCE LISTS, with edition/year], tagged by stage (early, growth, public). Boards are found via the [ats-scrapers](https://github.com/kalil0321/ats-scrapers) inventory (MIT), slug guessing, then manual lookup, and every board is verified against its live API. Companies included before collection starts form a frozen core cohort for trend analysis.
 
+## Sources:
+Candidates come from the 150 largest active, hiring YC companies from 2024+ batches (by team size), the Forbes Cloud 100 (2025), and S&P 500 companies in the Information Technology sector plus the Interactive Media & Services and Broadline Retail sub-industries, retrieved 2026-10-05.
+
 ## Consequences
 - Every candidate's platform is recorded, including unsupported ones, so coverage can be reported per stage.
 - Large enterprises are underrepresented; results are reported by stage.

@@ -20,7 +20,10 @@ dev = [
     "pytest>=9.1.1",
     "ruff>=0.16.10",
     "responses",
-    "pre-commit"
+    "pre-commit",
+    "pandas",
+    "lxml",
+    "requests",
 ]
 
 [tool.setuptools.packages.find]

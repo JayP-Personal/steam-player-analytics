@@ -18,8 +18,8 @@ community inventory and verified against each board's live API (see ADR 0003).
 - [x] `feat(companies)`: candidates file built from the source lists, one row per company, tagged with stratum and source list
 - [x] `feat(companies)`: board-matching script (name match against the ats-scrapers inventory, then slug guessing), with unit tests for name normalization and matching
 - [x] `feat(companies)`: live verification step (board responds, has open postings, postings belong to the right company)
-- [ ] `docs(companies)`: coverage report (candidates vs. supported boards, by stratum and platform)
-- [ ] `feat(seeds)`: freeze the core cohort into the dbt seed (platform, slug, stratum, source list, added_on, status)
+- [x] `docs(companies)`: coverage report (candidates vs. supported boards, by stratum and platform)
+- [x] `feat(seeds)`: freeze the core cohort into the dbt seed (platform, slug, stratum, source list, added_on, status)
 
 ### Collection
 - [ ] `feat(snowflake)`: raw table for job board responses (`VARIANT` payload, company, platform, board slug, fetched_at)

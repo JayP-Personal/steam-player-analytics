@@ -14,11 +14,10 @@ Each milestone becomes a GitHub milestone and ends with a tagged release. Each c
 Companies are chosen from published lists, then matched to their job boards using a
 community inventory and verified against each board's live API (see ADR 0003).
 
-- [ ] `docs(adr)`: 0003 company sampling frame (source lists, inclusion rules, frozen core cohort, how boards are found and verified)
-- [ ] `feat(companies)`: candidates file built from the source lists, one row per company, tagged with stratum and source list
-- [ ] `feat(companies)`: board-matching script (name match against the ats-scrapers inventory, then slug guessing), with unit tests for name normalization and matching
-- [ ] `feat(companies)`: live verification step (board responds, has open postings, postings belong to the right company)
-- [ ] `feat(companies)`: manual lookup of unmatched candidates and an exclusion log recording each company's platform (including unsupported ones like Workday) and reason for exclusion
+- [x] `docs(adr)`: 0003 company sampling frame (source lists, inclusion rules, frozen core cohort, how boards are found and verified)
+- [x] `feat(companies)`: candidates file built from the source lists, one row per company, tagged with stratum and source list
+- [x] `feat(companies)`: board-matching script (name match against the ats-scrapers inventory, then slug guessing), with unit tests for name normalization and matching
+- [x] `feat(companies)`: live verification step (board responds, has open postings, postings belong to the right company)
 - [ ] `docs(companies)`: coverage report (candidates vs. supported boards, by stratum and platform)
 - [ ] `feat(seeds)`: freeze the core cohort into the dbt seed (platform, slug, stratum, source list, added_on, status)
 

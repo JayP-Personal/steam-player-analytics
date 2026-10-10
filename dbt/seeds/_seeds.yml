@@ -1,0 +1,52 @@
+version: 2
+
+seeds:
+  - name: companies
+    description: >
+      Job boards tracked by the collection pipeline, one row per board.
+      Built by scripts/freeze_seed.py from companies/verified_boards.csv.
+      Frozen: rows are added or marked inactive deliberately, never rebuilt
+      silently (see ADR 0003).
+    config:
+      column_types:
+        added_on: date
+    columns:
+      - name: board_id
+        description: "Primary key: platform and board slug, e.g. greenhouse:airbnb."
+        data_tests:
+          - unique
+          - not_null
+      - name: company_name
+        description: Company name as it appears on the source list.
+        data_tests:
+          - not_null
+      - name: platform
+        description: Job board platform.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["greenhouse", "lever", "ashby"]
+      - name: board_slug
+        description: The company's identifier on the platform, used in API URLs.
+        data_tests:
+          - not_null
+      - name: stratum
+        description: Company stage.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["early", "growth", "public"]
+      - name: source_list
+        description: Published list the company was drawn from.
+      - name: added_on
+        description: Date the board joined the tracked set.
+        data_tests:
+          - not_null
+      - name: status
+        description: active, or inactive once a board stops responding (kept, not deleted).
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["active", "inactive"]

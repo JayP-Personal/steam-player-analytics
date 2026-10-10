@@ -2,12 +2,12 @@ services:
   scheduler:
     volumes:
       - ../src:/usr/local/airflow/src:ro
-      - ../dbt_tech_hiring:/usr/local/airflow/dbt_tech_hiring:ro
+      - ../dbt:/usr/local/airflow/dbt:ro
   dag-processor:
     volumes:
       - ../src:/usr/local/airflow/src:ro
-      - ../dbt_tech_hiring:/usr/local/airflow/dbt_tech_hiring:ro
+      - ../dbt:/usr/local/airflow/dbt:ro
   triggerer:
     volumes:
       - ../src:/usr/local/airflow/src:ro
-      - ../dbt_tech_hiring:/usr/local/airflow/dbt_tech_hiring:ro
+      - ../dbt:/usr/local/airflow/dbt:ro

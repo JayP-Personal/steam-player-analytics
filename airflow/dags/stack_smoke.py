@@ -5,7 +5,7 @@ from airflow.sdk import dag, task
 
 CONN_ID = "snowflake_default"
 DBT_BIN = "/usr/local/airflow/dbt_venv/bin/dbt"
-DBT_PROJECT = "/usr/local/airflow/dbt_tech_hiring"
+DBT_PROJECT = "/usr/local/airflow/dbt"
 
 
 @dag(start_date=datetime(2026, 1, 1), schedule=None, catchup=False, tags=["smoke"])
